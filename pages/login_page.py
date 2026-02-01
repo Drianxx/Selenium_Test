@@ -15,11 +15,9 @@ class LoginPage:
 
     def open(self):
         self.driver.get(BASE_URL)
-        # Tunggu sampai field username terlihat sebagai indikasi halaman login ready
         self.wait.until(EC.visibility_of_element_located(self.USERNAME))
 
     def login(self, username, password):
-        # Tunggu input terlihat dan tombol bisa diklik sebelum interaksi
         self.wait.until(EC.visibility_of_element_located(self.USERNAME)).send_keys(username)
         self.wait.until(EC.visibility_of_element_located(self.PASSWORD)).send_keys(password)
         self.wait.until(EC.element_to_be_clickable(self.LOGIN_BTN)).click()
@@ -29,5 +27,4 @@ class LoginPage:
             self.wait.until(EC.visibility_of_element_located(self.USERNAME))
             return True
         except TimeoutException:
-            # Jika timeout, fallback ke cek URL
             return "saucedemo" in self.driver.current_url
